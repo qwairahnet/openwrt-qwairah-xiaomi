@@ -55,5 +55,10 @@ cp -rf "$ROOT_DIR/files/." files/
 make -j"$(nproc)" || { make -j1 target/linux/install V=sc; exit 1; }
 
 mkdir -p "$ROOT_DIR/artifacts_out"
-cp -f bin/targets/ramips/mt7620/*miwifi-mini*sysupgrade.bin bin/targets/ramips/mt7620/*miwifi-mini*kernel.bin "$ROOT_DIR/artifacts_out/" 2>/dev/null || true
+for f in bin/targets/ramips/mt7620/*miwifi-mini*sysupgrade.bin bin/targets/ramips/mt7620/*miwifi-mini*kernel.bin; do
+    [ -f "$f" ] || continue
+    base=$(basename "$f")
+    cp -f "$f" "$ROOT_DIR/artifacts_out/$base"
+    cp -f "$f" "$ROOT_DIR/artifacts_out/QWAIRAH-XIAOMI-MINI-${base}"
+done
 ls -lh "$ROOT_DIR/artifacts_out/"

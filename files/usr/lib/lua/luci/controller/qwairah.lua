@@ -7,6 +7,7 @@ function index()
     entry({"admin", "qwairah", "tools"}, template("qwairah/tools"), _("Ping, Speed & Ports"), 3)
     entry({"admin", "qwairah", "schedule"}, cbi("qwairah_sched"), _("Scheduled Reboot"), 4)
     entry({"admin", "qwairah", "telegram"}, cbi("qwairah_tg"), _("Telegram Bot"), 5)
+    entry({"admin", "services"}, firstchild(), _("Services"), 40).dependent = false
     entry({"admin", "services", "qwairah_tg"}, cbi("qwairah_tg"), _("Telegram Bot"), 95)
 
     entry({"admin", "qwairah", "api_scan"}, call("action_scan")).leaf = true
@@ -28,7 +29,9 @@ function action_ping()
     local sys = require "luci.sys"
     local host = (luci.http.formvalue("host") or "1.1.1.3"):gsub("[^a-zA-Z0-9%.%-]", "")
     luci.http.prepare_content("application/json")
-    luci.http.write_json({ output = sys.exec("ping -c 4 -W 2 " .. host .. " 2>&1") })
+    luci.http.write_json({
+        output = sys.exec("ping -c 4 -W 2 " .. host .. " 2>&1")
+    })
 end
 
 function action_speed()
