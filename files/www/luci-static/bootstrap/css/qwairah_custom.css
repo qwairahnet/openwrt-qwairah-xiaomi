@@ -1,0 +1,122 @@
+:root {
+  --qw-bg: #031412;
+  --qw-card: #072420;
+  --qw-green-mid: #047857;
+  --qw-green-bright: #10b981;
+  --qw-gold: #eab308;
+  --qw-gold-bright: #fef08a;
+}
+
+body {
+  background: radial-gradient(circle at top right, #064e3b 0%, var(--qw-bg) 65%) !important;
+  color: #f8fafc !important;
+  padding-left: 230px !important;
+}
+
+header, .navbar, .topbar {
+  background: linear-gradient(90deg, #022c22, #065f46, #022c22) !important;
+  border-bottom: 2px solid var(--qw-gold) !important;
+  box-shadow: 0 2px 14px rgba(234, 179, 8, 0.28) !important;
+}
+
+.brand::before {
+  content: "";
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  background: url('/luci-static/resources/qwairah_logo.jpg') center/cover no-repeat !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--qw-gold-bright) !important;
+  box-shadow: 0 0 10px rgba(254, 240, 138, 0.65) !important;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.brand {
+  color: var(--qw-gold-bright) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.5px;
+}
+
+.nav, .node-main-menu, .main-left, #topmenu {
+  position: fixed !important;
+  left: 0 !important;
+  top: 48px !important;
+  width: 224px !important;
+  height: calc(100vh - 48px) !important;
+  background: linear-gradient(180deg, #065f46 0%, #022c22 100%) !important;
+  border-right: 2px solid var(--qw-gold) !important;
+  box-shadow: 3px 0 16px rgba(0, 0, 0, 0.45) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto !important;
+  z-index: 999 !important;
+}
+
+.nav > li > a, .node-main-menu a, .main-left a {
+  color: #ffffff !important;
+  padding: 9px 14px !important;
+  display: block !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid rgba(234, 179, 8, 0.14) !important;
+  text-decoration: none !important;
+}
+
+.nav > li > a:hover, .nav > li.active > a, .node-main-menu a:hover, .main-left a:hover {
+  background: linear-gradient(90deg, var(--qw-gold-bright), var(--qw-gold)) !important;
+  color: #022c22 !important;
+}
+
+.main > .container, .cbi-map, .cbi-section, .panel {
+  background: rgba(7, 36, 32, 0.92) !important;
+  border: 1px solid rgba(234, 179, 8, 0.55) !important;
+  border-radius: 10px !important;
+  padding: 14px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+}
+
+h1, h2, h3, legend, .cbi-section-table-descr {
+  color: var(--qw-gold-bright) !important;
+}
+
+.btn, button, .cbi-button, input[type="submit"], input[type="button"] {
+  background: linear-gradient(135deg, var(--qw-green-bright), var(--qw-green-mid)) !important;
+  border: 1px solid var(--qw-gold) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+}
+
+.btn:hover, button:hover, .cbi-button:hover {
+  background: linear-gradient(135deg, var(--qw-gold-bright), var(--qw-gold)) !important;
+  color: #022c22 !important;
+}
+
+footer, .footer {
+  text-align: center !important;
+  padding: 12px !important;
+  border-top: 2px solid var(--qw-gold) !important;
+  background: #022c22 !important;
+}
+
+footer a, .footer a, a[href*="github.com/openwrt"], a[href*="luci"], .luci-credits {
+  display: none !important;
+}
+
+footer::after, .footer::after {
+  content: "QWAIRAH NET SYSTEM - Xiaomi (MT7620)" !important;
+  display: block !important;
+  color: var(--qw-gold-bright) !important;
+  font-weight: 800 !important;
+}
+
+@media (max-width: 768px) {
+  body { padding-left: 0 !important; }
+  .nav, .node-main-menu, .main-left {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    top: 0 !important;
+  }
+}

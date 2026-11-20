@@ -1,0 +1,25 @@
+<%+header%>
+<h2><%:Ping, Speed, Ports & Clients%></h2>
+<div class="cbi-map">
+  <input id="h" value="1.1.1.3" style="padding:6px;border-radius:6px;border:1px solid #eab308;" />
+  <button class="btn" onclick="runP()"><%:Ping%></button>
+  <button class="btn" onclick="runS()"><%:Speed Test%></button>
+  <pre id="pout" style="margin-top:12px;background:#022c22;color:#34d399;padding:12px;direction:ltr;text-align:left;"></pre>
+  <pre style="margin-top:12px;background:#022c22;color:#fef08a;padding:12px;direction:ltr;text-align:left;"><%=luci.sys.exec("echo '=== INTERFACES & SPEED ==='; for d in /sys/class/net/*; do n=$(basename \"$d\"); echo \"$n | state:$(cat \"$d/operstate\" 2>/dev/null) | link_speed:$(cat \"$d/speed\" 2>/dev/null)Mb/s | RX:$(cat \"$d/statistics/rx_bytes\" 2>/dev/null)B | TX:$(cat \"$d/statistics/tx_bytes\" 2>/dev/null)B\"; done; echo '=== ARP / CLIENTS ==='; cat /proc/net/arp; echo '=== DHCP LEASES ==='; cat /tmp/dhcp.leases 2>/dev/null")%></pre>
+</div>
+<script>
+function runP(){
+  var h=document.getElementById('h').value;
+  document.getElementById('pout').innerText='Pinging...';
+  XHR.get('<%=luci.dispatcher.build_url("admin","qwairah","api_ping")%>',{host:h},function(x,d){
+    document.getElementById('pout').innerText=(d&&d.output)||'Error';
+  });
+}
+function runS(){
+  document.getElementById('pout').innerText='Testing speed...';
+  XHR.get('<%=luci.dispatcher.build_url("admin","qwairah","api_speed")%>',null,function(x,d){
+    document.getElementById('pout').innerText=(d&&d.output)||'Error';
+  });
+}
+</script>
+<%+footer%>

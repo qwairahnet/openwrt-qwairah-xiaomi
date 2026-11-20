@@ -1,0 +1,16 @@
+<%+header%>
+<h2><%:Channel Scan%></h2>
+<div class="cbi-map">
+  <button class="btn" onclick="runScan('5g')"><%:Scan 5GHz%></button>
+  <button class="btn" onclick="runScan('2g')"><%:Scan 2.4GHz%></button>
+  <pre id="out" style="margin-top:12px;background:#022c22;color:#fef08a;padding:12px;direction:ltr;text-align:left;">Ready...</pre>
+</div>
+<script>
+function runScan(b){
+  document.getElementById('out').innerText='Scanning...';
+  XHR.get('<%=luci.dispatcher.build_url("admin","qwairah","api_scan")%>',{band:b},function(x,d){
+    document.getElementById('out').innerText=(d&&d.output)||'No networks found';
+  });
+}
+</script>
+<%+footer%>

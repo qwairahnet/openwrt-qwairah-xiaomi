@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ "$ACTION" = "add" ] || [ "$ACTION" = "new" ]; then
+    MAC_ADDR="${LLADDR:-unknown}"
+    [ "$MAC_ADDR" = "unknown" ] && exit 0
+    IP_FOUND=$(awk -v m="$MAC_ADDR" 'tolower($4)==tolower(m){print $1; exit}' /proc/net/arp 2>/dev/null)
+    HOST_FOUND=$(awk -v m="$MAC_ADDR" 'tolower($3)==tolower(m){print $4; exit}' /tmp/dhcp.leases 2>/dev/null)
+    /usr/bin/qwairah_notify.sh "CLIENT / PEER CONNECTED" "Dev:${DEV:-br-lan} MAC:${MAC_ADDR} IP:${IP_FOUND:-none} Host:${HOST_FOUND:-unknown}"
+fi

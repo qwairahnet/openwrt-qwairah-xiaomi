@@ -1,0 +1,7 @@
+#!/bin/sh
+[ -z "$INTERFACE" ] && exit 0
+if [ "$ACTION" = "ifup" ]; then
+    /usr/bin/qwairah_notify.sh "PORT / IFACE UP (${INTERFACE})" "Interface ${INTERFACE} connected"
+elif [ "$ACTION" = "ifdown" ]; then
+    /usr/bin/qwairah_notify.sh "PORT / IFACE DOWN (${INTERFACE})" "Interface ${INTERFACE} disconnected"
+fi
