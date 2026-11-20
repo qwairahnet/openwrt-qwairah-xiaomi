@@ -15,11 +15,12 @@ fi
 uci set luci.main.lang='ar'
 uci commit luci
 
-for hdr in /www/luci-static/bootstrap/header.htm /usr/lib/lua/luci/view/themes/bootstrap/header.htm /usr/lib/lua/luci/view/themes/bootstrap/footer.htm; do
-    if [ -f "$hdr" ] && ! grep -q "qwairah_custom.css" "$hdr"; then
-        sed -i 's|</head>|<link rel="stylesheet" href="/luci-static/bootstrap/css/qwairah_custom.css" /></head>|g; s|</body>|<link rel="stylesheet" href="/luci-static/bootstrap/css/qwairah_custom.css" /></body>|g' "$hdr"
+for tpl in /usr/share/ucode/luci/template/header.ut /usr/share/ucode/luci/template/footer.ut /usr/share/ucode/luci/template/themes/bootstrap/header.ut /usr/share/ucode/luci/template/themes/bootstrap/footer.ut /www/luci-static/bootstrap/header.htm /usr/lib/lua/luci/view/themes/bootstrap/header.htm /usr/lib/lua/luci/view/themes/bootstrap/footer.htm; do
+    if [ -f "$tpl" ] && ! grep -q "qwairah_custom.css" "$tpl"; then
+        sed -i 's|</head>|<link rel="stylesheet" href="/luci-static/bootstrap/css/qwairah_custom.css" /></head>|g; s|</body>|<link rel="stylesheet" href="/luci-static/bootstrap/css/qwairah_custom.css" /></body>|g' "$tpl"
     fi
 done
+rm -rf /tmp/luci-indexcache /tmp/luci-modulecache /var/luci-* 2>/dev/null || true
 rm -rf /tmp/luci-indexcache /tmp/luci-modulecache 2>/dev/null || true
 
 uci set network.lan.proto='static'
